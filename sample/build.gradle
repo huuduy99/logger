@@ -1,8 +1,30 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+
+buildscript {
+  repositories {
+    maven { url 'https://maven.fabric.io/public' }
+  }
+
+
+  dependencies {
+    classpath 'io.fabric.tools:gradle:1.+'
+
+  }
+}
+
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+  mavenCentral()
+  maven { url 'https://dl.bintray.com/alexeydanilov/apk-expansion' }
+}
+
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion 28
+  buildToolsVersion '30.0.2'
 
   defaultConfig {
     applicationId "com.orhanobut.sample"
@@ -14,8 +36,13 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
   }
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
 }
 
 dependencies {
   implementation project(":logger")
+  implementation "androidx.core:core-ktx:1.0.1"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
